@@ -1,7 +1,7 @@
 {
-    "name": "spacedmonkey/echo-lazy-load",
+    "name": "spacedmonkey/echo-js-lazy-load",
     "description": "Echo.js based lazy load plugin for WordPress",
-    "homepage": "https://github.com/spacedmonkey/echo-lazy-load/",
+    "homepage": "https://github.com/spacedmonkey/echo-js-lazy-load/",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
     "authors": [
@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/spacedmonkey/echo-lazy-load/issues",
-        "source": "https://github.com/spacedmonkey/echo-lazy-load/"
+        "issues": "https://github.com/spacedmonkey/echo-js-lazy-load/issues",
+        "source": "https://github.com/spacedmonkey/echo-js-lazy-load/"
     },
     "require": {
         "php": ">=5.3",

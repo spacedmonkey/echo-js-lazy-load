@@ -1,26 +1,26 @@
 <?php
 /**
- * Echo Lazy Load
+ * Echo.js Lazy Load
  *
  *
- * @package   Echo_Lazy_Load
+ * @package   Echo_Js_Lazy_Load
  * @author    Jonathan Harris <jon@spacedmonkey.co.uk>
  * @license   GPL-2.0+
  * @link      http://www.jonathandavidharris.co.uk/
  * @copyright 2015 Spacedmonkey
  *
  * @wordpress-plugin
- * Plugin Name:        Echo Lazy Load
- * Plugin URI:         https://www.github.com/spacedmonkey/echo-lazy-load
- * Description:        Echo Lazy Load
+ * Plugin Name:        Echo.js Lazy Load
+ * Plugin URI:         https://www.github.com/spacedmonkey/echo-js-lazy-load
+ * Description:        Echo.js based lazy load plugin for WordPress
  * Version:            1.0.0
  * Author:             Jonathan Harris
  * Author URI:         http://www.jonathandavidharris.co.uk/
- * Text Domain:        echo-lazy-load
+ * Text Domain:        echo-js-lazy-load
  * License:            GPL-2.0+
  * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:        /languages
- * GitHub Plugin URI:  https://www.github.com/spacedmonkey/echo-lazy-load
+ * GitHub Plugin URI:  https://www.github.com/spacedmonkey/echo-js-lazy-load
  */
 
 // If this file is called directly, abort.
@@ -29,9 +29,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Class Echo_Lazy_Load
+ * Class Echo_Js_Lazy_Load
  */
-class Echo_Lazy_Load {
+class Echo_Js_Lazy_Load {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -58,7 +58,7 @@ class Echo_Lazy_Load {
 	 * @since     1.0.0
 	 */
 
-	protected $plugin_name = 'echo_lazy_load';
+	protected $plugin_name = 'echo_js_lazy_load';
 
 	/**
 	 *
@@ -192,7 +192,6 @@ class Echo_Lazy_Load {
 	 * @return string
 	 */
 	function wp_footer() {
-
 		echo '<script>echo.init(' . $this->getPluginName() . ');</script>' . "\n";
 	}
 
@@ -200,14 +199,14 @@ class Echo_Lazy_Load {
 	 * @return array
 	 */
 	public function getFilters() {
-		return apply_filters( 'echo_lazy_load_filters', $this->filters );
+		return apply_filters( 'echo_js_lazy_load_filters', $this->filters );
 	}
 
 	/**
 	 * @return array
 	 */
 	public function getLazyLoadSettings() {
-		return apply_filters( 'echo_lazy_load_settings', $this->lazy_load_settings );
+		return apply_filters( 'echo_js_lazy_load_settings', $this->lazy_load_settings );
 	}
 
 	/**
@@ -242,14 +241,14 @@ class Echo_Lazy_Load {
 			$this->lazy_load_enabled = false;
 		}
 
-		return apply_filters( 'echo_lazy_load_enabled', $this->lazy_load_enabled );
+		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getLazyLoadImageAjax() {
-		return apply_filters( 'echo_lazy_load_placeholder', $this->lazy_load_image_ajax );
+		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_ajax );
 	}
 
 
@@ -257,9 +256,9 @@ class Echo_Lazy_Load {
 	 * @return string
 	 */
 	public function getLazyLoadImagePlaceholder() {
-		return apply_filters( 'echo_lazy_load_placeholder', $this->lazy_load_image_placeholder );
+		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_placeholder );
 	}
 
 
 }
-add_action( 'plugins_loaded', array( 'Echo_Lazy_Load', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'Echo_Js_Lazy_Load', 'get_instance' ) );
