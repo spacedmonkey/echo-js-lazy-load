@@ -1,6 +1,6 @@
 <?php
 /**
- * Echo.js Lazy Load
+ * Echo.js based lazy load plugin for WordPress
  *
  *
  * @package   Echo_Js_Lazy_Load
@@ -61,6 +61,7 @@ class Echo_Js_Lazy_Load {
 	protected $plugin_name = 'echo_js_lazy_load';
 
 	/**
+	 * List of filters to run this string replace on
 	 *
 	 * @since     1.0.0
 	 *
@@ -78,15 +79,23 @@ class Echo_Js_Lazy_Load {
 	);
 
 	/**
+	 * Javascript settings array
 	 *
 	 * @since     1.0.0
 	 *
 	 * @var string
 	 */
-	protected $lazy_load_settings = array( 'offset' => 100, 'throttle' => 250 );
+	protected $lazy_load_settings = array(
+		'offset'   => 100,
+		'throttle' => 250,
+		'debounce' => 'true',
+		'unload' => 'false'
+	);
 
 
 	/**
+	 *
+	 * URL of ajax image
 	 *
 	 * @since     1.0.0
 	 *
@@ -96,6 +105,8 @@ class Echo_Js_Lazy_Load {
 
 
 	/**
+	 *
+	 * URL of placeholder image
 	 *
 	 * @since     1.0.0
 	 *
@@ -148,12 +159,15 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 * String replace on content to add data attribute
+	 *
 	 * @param $content
 	 *
 	 * @return mixed
 	 */
 	public function filter_content( $content ) {
 
+		// Lets not both if not enabled
 		if ( ! $this->isLazyLoadEnabled() ) {
 			return $content;
 		}
@@ -171,13 +185,16 @@ class Echo_Js_Lazy_Load {
 		return $content;
 	}
 
+	/**
+	 * Put CSS in header
+	 */
 	public function wp_head() {
 		$image_url = $this->getLazyLoadImageAjax();
 		echo "<style type='text/css' media='screen'>img[data-echo]{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
 	}
 
 	/**
-	 *
+	 * Output scripts
 	 */
 	public function wp_enqueue_scripts() {
 		$script = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'echo.js' : 'echo.min.js';
@@ -186,16 +203,19 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * @param $src
-	 * @param null $handle
-	 *
-	 * @return string
+	 * Init the script
 	 */
 	function wp_footer() {
-		echo '<script>echo.init(' . $this->getPluginName() . ');</script>' . "\n";
+		$script_name = $this->getPluginName();
+		echo '<script type="text/javascript">
+				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
+				' . $script_name . '.unload = (' . $script_name . '.unload === "true");
+				echo.init(' . $script_name . ');
+			  </script>' . "\n";
 	}
 
 	/**
+	 * Filter the filter
 	 * @return array
 	 */
 	public function getFilters() {
@@ -203,6 +223,7 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 * Filter the settings
 	 * @return array
 	 */
 	public function getLazyLoadSettings() {
@@ -217,6 +238,10 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 * Disable the string replace on the following conditions
+	 * is admin, is ajax, is preview, is cron.
+	 * This is filterable.
+	 *
 	 * @return boolean
 	 */
 	public function isLazyLoadEnabled() {
@@ -241,14 +266,16 @@ class Echo_Js_Lazy_Load {
 			$this->lazy_load_enabled = false;
 		}
 
-		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled );
+		$context = current_filter();
+
+		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled, $context );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getLazyLoadImageAjax() {
-		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_ajax );
+		return apply_filters( 'echo_js_lazy_load_ajax_image', $this->lazy_load_image_ajax );
 	}
 
 
@@ -256,9 +283,12 @@ class Echo_Js_Lazy_Load {
 	 * @return string
 	 */
 	public function getLazyLoadImagePlaceholder() {
-		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_placeholder );
+		$context = current_filter();
+
+		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_placeholder, $context );
 	}
 
 
 }
+
 add_action( 'plugins_loaded', array( 'Echo_Js_Lazy_Load', 'get_instance' ) );
