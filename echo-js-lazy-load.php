@@ -86,7 +86,7 @@ class Echo_Js_Lazy_Load {
 	 * @var string
 	 */
 	protected $lazy_load_settings = array(
-		'offset'   => 100,
+		'offset'   => 500,
 		'throttle' => 250,
 		'debounce' => 'true',
 		'unload' => 'false'
