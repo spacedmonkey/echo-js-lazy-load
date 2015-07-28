@@ -190,7 +190,10 @@ class Echo_Js_Lazy_Load {
 	 */
 	public function wp_head() {
 		$image_url = $this->getLazyLoadImageAjax();
-		echo "<style type='text/css' media='screen'>img[data-echo]{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
+		if ( $image_url ) {
+			echo "<style type='text/css' media='screen'>img[data-echo]{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
+
+		}
 	}
 
 	/**
@@ -219,7 +222,7 @@ class Echo_Js_Lazy_Load {
 	 * @return array
 	 */
 	public function getFilters() {
-		return apply_filters( 'echo_js_lazy_load_filters', $this->filters );
+		return (array) apply_filters( 'echo_js_lazy_load_filters', $this->filters );
 	}
 
 	/**
@@ -227,7 +230,7 @@ class Echo_Js_Lazy_Load {
 	 * @return array
 	 */
 	public function getLazyLoadSettings() {
-		return apply_filters( 'echo_js_lazy_load_settings', $this->lazy_load_settings );
+		return (array) apply_filters( 'echo_js_lazy_load_settings', $this->lazy_load_settings );
 	}
 
 	/**
@@ -258,6 +261,11 @@ class Echo_Js_Lazy_Load {
 
 		if ( is_preview() ) {
 			$context = 'preview';
+			$this->lazy_load_enabled = false;
+		}
+
+		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
+			$context = 'customize_preview';
 			$this->lazy_load_enabled = false;
 		}
 
