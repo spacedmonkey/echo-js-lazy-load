@@ -75,7 +75,7 @@ class Echo_Js_Lazy_Load {
 		'get_avatar',
 		'get_comment_excerpt',
 		'get_comment_text',
-		'term_description'
+		'term_description',
 	);
 
 	/**
@@ -89,7 +89,7 @@ class Echo_Js_Lazy_Load {
 		'offset'   => 500,
 		'throttle' => 250,
 		'debounce' => 'true',
-		'unload' => 'false'
+		'unload' => 'false',
 	);
 
 
@@ -221,7 +221,7 @@ class Echo_Js_Lazy_Load {
 	 * Filter the filter
 	 * @return array
 	 */
-	public function getFilters() {
+	public function get_filters() {
 		return (array) apply_filters( 'echo_js_lazy_load_filters', $this->filters );
 	}
 
@@ -229,14 +229,14 @@ class Echo_Js_Lazy_Load {
 	 * Filter the settings
 	 * @return array
 	 */
-	public function getLazyLoadSettings() {
+	public function get_lazy_load_settings() {
 		return (array) apply_filters( 'echo_js_lazy_load_settings', $this->lazy_load_settings );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPluginName() {
+	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
 
@@ -247,7 +247,7 @@ class Echo_Js_Lazy_Load {
 	 *
 	 * @return boolean
 	 */
-	public function isLazyLoadEnabled() {
+	public function is_lazy_load_enabled() {
 		$context = '';
 		$filter  = current_filter();
 
@@ -287,7 +287,7 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * @return string
 	 */
-	public function getLazyLoadImageAjax() {
+	public function get_lazy_load_image_ajax() {
 		return apply_filters( 'echo_js_lazy_load_ajax_image', $this->lazy_load_image_ajax );
 	}
 
@@ -295,7 +295,7 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * @return string
 	 */
-	public function getLazyLoadImagePlaceholder() {
+	public function get_lazy_load_image_placeholder() {
 		$context = current_filter();
 
 		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_placeholder, $context );
