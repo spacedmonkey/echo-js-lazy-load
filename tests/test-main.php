@@ -13,7 +13,6 @@ class MainTest extends WP_UnitTestCase {
 	function setUp() {
 		parent::setUp();
 		$this->plugin_class = Echo_Js_Lazy_Load::get_instance();
-		$this->plugin_state = $this->plugin_class->isLazyLoadEnabled();
 	}
 
 	function tearDown() {
