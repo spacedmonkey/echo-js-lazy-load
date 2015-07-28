@@ -21,5 +21,5 @@ before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
-   - vendor/bin/phpcs -n --report=emacs --standard=phpcs.ruleset.xml classes
+   - vendor/bin/phpcs -n --report=emacs --standard=phpcs.ruleset.xml echo-js-lazy-load.php
    - phpunit
