@@ -248,39 +248,39 @@ class Echo_Js_Lazy_Load {
 	 * @return boolean
 	 */
 	public function isLazyLoadEnabled() {
+		$context = '';
+		$filter  = current_filter();
 
 		if ( is_admin() ) {
-			$context = 'admin';
+			$context                 = 'admin';
 			$this->lazy_load_enabled = false;
 		}
 
 		if ( is_feed() ) {
-			$context = 'feed';
+			$context                 = 'feed';
 			$this->lazy_load_enabled = false;
 		}
 
 		if ( is_preview() ) {
-			$context = 'preview';
+			$context                 = 'preview';
 			$this->lazy_load_enabled = false;
 		}
 
 		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
-			$context = 'customize_preview';
+			$context                 = 'customize_preview';
 			$this->lazy_load_enabled = false;
 		}
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			$context = 'ajax';
+			$context                 = 'ajax';
 			$this->lazy_load_enabled = false;
 		}
 
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-			$context = 'cron';
+			$context                 = 'cron';
 			$this->lazy_load_enabled = false;
 		}
-
-		$filter = current_filter();
-
+		
 		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled, $context, $filter );
 	}
 
