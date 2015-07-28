@@ -2,6 +2,7 @@
 ## Composer
 ############
 vendor/
+composer.lock
 
 ############
 ## OSes
@@ -30,3 +31,4 @@ local.properties
 nbproject/
 node_modules/*
 premium/node_modules/*
+
