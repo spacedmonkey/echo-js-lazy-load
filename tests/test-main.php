@@ -78,9 +78,8 @@ class MainTest extends WP_UnitTestCase {
 			'term_description',
 		);
 
-		foreach ( $filters as $filter ) {
-			$this->assertArrayHasKey( $filter, $this->plugin_class->get_filters() );
-		}
+		$this->assertEquals( $filters, $this->plugin_class->get_filters() );
+
 	}
 
 
