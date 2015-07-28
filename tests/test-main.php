@@ -21,7 +21,6 @@ class MainTest extends WP_UnitTestCase {
 	}
 
 	function testFilterContent() {
-		$this->plugin_class->lazy_load_enabled = true;
 
 		add_filter('echo_js_lazy_load_enabled', '__return_true');
 
