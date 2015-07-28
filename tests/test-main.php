@@ -43,7 +43,7 @@ class MainTest extends WP_UnitTestCase {
 
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
-		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
+		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->plugin_class->filter_content( $this->content_with_image_atr ) );
