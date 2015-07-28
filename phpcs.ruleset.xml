@@ -12,4 +12,3 @@
         <exclude name="WordPress.XSS.EscapeOutput" />
     </rule>
 </ruleset>
-        
