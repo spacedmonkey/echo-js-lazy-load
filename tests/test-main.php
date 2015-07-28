@@ -22,24 +22,24 @@ class MainTest extends WP_UnitTestCase {
 
 	function testFilterContent() {
 
-		add_filter('echo_js_lazy_load_enabled', '__return_true');
+		add_filter( 'echo_js_lazy_load_enabled', '__return_true' );
 
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 
-		remove_filter('echo_js_lazy_load_enabled', '__return_true');
+		remove_filter( 'echo_js_lazy_load_enabled', '__return_true' );
 	}
 
 	function testFilterContentNothing() {
-		add_filter('echo_js_lazy_load_enabled', '__return_true');
+		add_filter( 'echo_js_lazy_load_enabled', '__return_true' );
 
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 
-		remove_filter('echo_js_lazy_load_enabled', '__return_true');
+		remove_filter( 'echo_js_lazy_load_enabled', '__return_true' );
 	}
 
 	function testNoFiltering() {
-		add_filter('echo_js_lazy_load_enabled', '__return_false');
+		add_filter( 'echo_js_lazy_load_enabled', '__return_false' );
 
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
@@ -48,16 +48,42 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 
-		add_filter('echo_js_lazy_load_enabled', '__return_false');
+		add_filter( 'echo_js_lazy_load_enabled', '__return_false' );
 	}
 
 
-	function testgetLazyLoadSettings(){
-		$this->assertArrayHasKey('offset', $this->plugin_class->getLazyLoadSettings());
-		$this->assertArrayHasKey('throttle', $this->plugin_class->getLazyLoadSettings());
-		$this->assertArrayHasKey('debounce', $this->plugin_class->getLazyLoadSettings());
-		$this->assertArrayHasKey('unload', $this->plugin_class->getLazyLoadSettings());
+	function test_get_lazy_load_settings() {
+
+		$elements = array(
+			'offset',
+			'throttle',
+			'debounce',
+			'unload',
+		);
+
+		foreach ( $elements as $element ) {
+			$this->assertArrayHasKey( $element, $this->plugin_class->get_lazy_load_settings() );
+		}
+
 	}
+
+	function test_get_filters() {
+		$filters = array(
+			'the_content',
+			'get_the_excerpt',
+			'widget_text',
+			'post_thumbnail_html',
+			'get_avatar',
+			'get_comment_excerpt',
+			'get_comment_text',
+			'term_description',
+		);
+
+		foreach ( $filters as $filter ) {
+			$this->assertArrayHasKey( $filter, $this->plugin_class->get_filters() );
+		}
+	}
+
 
 }
 

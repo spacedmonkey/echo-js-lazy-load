@@ -135,7 +135,7 @@ class Echo_Js_Lazy_Load {
 		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
 
-		foreach ( $this->getFilters() as $filter ) {
+		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
 
@@ -168,7 +168,7 @@ class Echo_Js_Lazy_Load {
 	public function filter_content( $content ) {
 
 		// Lets not both if not enabled
-		if ( ! $this->isLazyLoadEnabled() ) {
+		if ( ! $this->is_lazy_load_enabled() ) {
 			return $content;
 		}
 
@@ -177,7 +177,7 @@ class Echo_Js_Lazy_Load {
 			return $content;
 		}
 
-		$placeholder_image = $this->getLazyLoadImagePlaceholder();
+		$placeholder_image = $this->get_lazy_load_image_placeholder();
 
 		// This is a pretty simple regex, but it works
 		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ), $content );
@@ -189,7 +189,7 @@ class Echo_Js_Lazy_Load {
 	 * Put CSS in header
 	 */
 	public function wp_head() {
-		$image_url = $this->getLazyLoadImageAjax();
+		$image_url = $this->get_lazy_load_image_ajax();
 		if ( $image_url ) {
 			echo "<style type='text/css' media='screen'>img[data-echo]{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
 
@@ -201,15 +201,15 @@ class Echo_Js_Lazy_Load {
 	 */
 	public function wp_enqueue_scripts() {
 		$script = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'echo.js' : 'echo.min.js';
-		wp_enqueue_script( $this->getPluginName(), plugins_url( 'js/' . $script, __FILE__ ), array(), $this::VERSION, true );
-		wp_localize_script( $this->getPluginName(), $this->getPluginName(), $this->getLazyLoadSettings() );
+		wp_enqueue_script( $this->get_plugin_name(), plugins_url( 'js/' . $script, __FILE__ ), array(), $this::VERSION, true );
+		wp_localize_script( $this->get_plugin_name(), $this->get_plugin_name(), $this->get_lazy_load_settings() );
 	}
 
 	/**
 	 * Init the script
 	 */
 	function wp_footer() {
-		$script_name = $this->getPluginName();
+		$script_name = $this->get_plugin_name();
 		echo '<script type="text/javascript">
 				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
 				' . $script_name . '.unload = (' . $script_name . '.unload === "true");
