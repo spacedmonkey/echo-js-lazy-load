@@ -280,7 +280,7 @@ class Echo_Js_Lazy_Load {
 			$context                 = 'cron';
 			$this->lazy_load_enabled = false;
 		}
-		
+
 		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled, $context, $filter );
 	}
 
