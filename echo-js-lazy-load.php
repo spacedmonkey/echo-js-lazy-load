@@ -273,7 +273,7 @@ class Echo_Js_Lazy_Load {
 		}
 
 		// Is in admin bar / avatar. This is a work around.
-		if ( $wp_current_filter == array( 'wp_footer', 'admin_bar_menu', 'get_avatar' ) ) {
+		if ( array( 'wp_footer', 'admin_bar_menu', 'get_avatar' ) == $wp_current_filter ) {
 			$context                 = 'admin-bar';
 			$this->lazy_load_enabled = false;
 		}
