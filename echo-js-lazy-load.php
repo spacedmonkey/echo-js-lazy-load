@@ -301,7 +301,7 @@ class Echo_Js_Lazy_Load {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param boolean $context  Is and isn't enabled.
+		 * @param boolean $enabled  Is and isn't enabled.
 		 * @param string $context   Current context of where the filter is called
 		 * @param string $filter    Current filter
 		 */
