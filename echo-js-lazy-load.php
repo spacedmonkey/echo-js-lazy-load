@@ -248,39 +248,63 @@ class Echo_Js_Lazy_Load {
 	 * @return boolean
 	 */
 	public function is_lazy_load_enabled() {
-		$context = '';
-		$filter  = current_filter();
+		global $wp_current_filter;
 
+		$context                 = '';
+		$filter                  = current_filter();
+		$this->lazy_load_enabled = true;
+
+		// Is in admin terminal
 		if ( is_admin() ) {
 			$context                 = 'admin';
 			$this->lazy_load_enabled = false;
 		}
 
+		// Is in feed
 		if ( is_feed() ) {
 			$context                 = 'feed';
 			$this->lazy_load_enabled = false;
 		}
 
+		// Is in post preview
 		if ( is_preview() ) {
 			$context                 = 'preview';
 			$this->lazy_load_enabled = false;
 		}
 
+		// Is in admin bar / avatar. This is a work around.
+		if ( $wp_current_filter == array( 'wp_footer', 'admin_bar_menu', 'get_avatar' ) ) {
+			$context                 = 'admin-bar';
+			$this->lazy_load_enabled = false;
+		}
+
+		// Is in customizer
 		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			$context                 = 'customize_preview';
 			$this->lazy_load_enabled = false;
 		}
 
+		// Is doing ajax
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			$context                 = 'ajax';
 			$this->lazy_load_enabled = false;
 		}
 
+		// Is doing cron
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			$context                 = 'cron';
 			$this->lazy_load_enabled = false;
 		}
 
+		/**
+		 * Is echo js enabled, by context
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param boolean $context  Is and isn't enabled.
+		 * @param string $context   Current context of where the filter is called
+		 * @param string $filter    Current filter
+		 */
 		return apply_filters( 'echo_js_lazy_load_enabled', $this->lazy_load_enabled, $context, $filter );
 	}
 
