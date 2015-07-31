@@ -38,7 +38,7 @@ class MainTest extends WP_UnitTestCase {
 	}
 
 	function testNoFiltering() {
-		add_filter( 'echo_js_lazy_load_enabled', '__return_false' );
+		add_filter( 'echo_lazy_load_locally_enabled', '__return_false' );
 
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
@@ -47,7 +47,7 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 
-		add_filter( 'echo_js_lazy_load_enabled', '__return_false' );
+		add_filter( 'echo_lazy_load_locally_enabled', '__return_false' );
 	}
 
 
