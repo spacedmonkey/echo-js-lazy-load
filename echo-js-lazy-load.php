@@ -270,12 +270,6 @@ class Echo_Js_Lazy_Load {
 			$lazy_load_enabled = false;
 		}
 
-		// Is in feed
-		if ( is_feed() ) {
-			$context           = 'feed';
-			$lazy_load_enabled = false;
-		}
-
 		// Is doing ajax
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			$context           = 'ajax';
@@ -316,6 +310,11 @@ class Echo_Js_Lazy_Load {
 		$filter                  = current_filter();
 		$this->lazy_load_enabled = true;
 
+		// Is in feed
+		if ( is_feed() ) {
+			$context           = 'feed';
+			$this->lazy_load_enabled = false;
+		}
 
 		// Is in post preview
 		if ( is_preview() ) {
