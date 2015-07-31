@@ -9,6 +9,9 @@ It is built using the WordPress coding standards, is designed to be very lite we
 
 If you wish to follow the development of this plugin, view the code on the official plugin [website](http://www.jonathandavidharris.co.uk/ "website") or follow me on twitter [@thespacedmonkey](https://twitter.com/thespacedmonkey)
 
+## Customization
+
+This plugin doesn't have any settings panel as it designed to be simple. However, it doesn't mean that it isn't customizable. There filters through the code to enable the customization of here every aspect of the plugin. The code is well documented and easy to read, so developers / users can make the most of this plugin.
 
 ## Installation
 
@@ -68,3 +71,5 @@ There are various ways you can contribute:
 * Raise an issue on GitHub.
 * Send us a Pull Request with your bug fixes and/or new features.
 * Provide feedback and suggestions on enhancements.
+
+It is worth noting that, this project has travis enabled and runs automated tests, including code sniffing and unit tests. Any pull request will be rejects, unless these tests pass. This is to ensure that the code is of the highest quality, follows coding standards and is secure.

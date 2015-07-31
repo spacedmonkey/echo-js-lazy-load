@@ -135,6 +135,7 @@ class Echo_Js_Lazy_Load {
 		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
 
+		// Filter filter content to list of filters
 		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
@@ -186,7 +187,8 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * Put CSS in header
+	 * Put CSS in header.
+	 * To disable, return false on echo_js_lazy_load_ajax_image filter
 	 */
 	public function wp_head() {
 		$image_url = $this->get_lazy_load_image_ajax();
@@ -197,7 +199,8 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * Output scripts
+	 * Output scripts with settings.
+	 *
 	 */
 	public function wp_enqueue_scripts() {
 		$script = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'echo.js' : 'echo.min.js';
@@ -206,7 +209,7 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * Init the script
+	 * Init the script in footer
 	 */
 	function wp_footer() {
 		$script_name = $this->get_plugin_name();
@@ -218,7 +221,8 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * Filter the filter
+	 * Filter the list of filters applied the lazy load string replace.
+	 *
 	 * @return array
 	 */
 	public function get_filters() {
@@ -226,7 +230,9 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * Filter the settings
+	 * Filter the settings.
+	 * Should always return array
+	 *
 	 * @return array
 	 */
 	public function get_lazy_load_settings() {
@@ -234,6 +240,7 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 *
 	 * @return string
 	 */
 	public function get_plugin_name() {
@@ -309,7 +316,9 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
-	 * @return string
+	 * String of URL of loading image or falase if disabled
+	 *
+	 * @return string|boolean
 	 */
 	public function get_lazy_load_image_ajax() {
 		return apply_filters( 'echo_js_lazy_load_ajax_image', $this->lazy_load_image_ajax );
@@ -317,7 +326,10 @@ class Echo_Js_Lazy_Load {
 
 
 	/**
-	 * @return string
+	 * Get placeholder image. This is filterable depending on context.
+	 * You could for example have different avatar placeholder
+	 *
+	 * @return string url of placeholder image
 	 */
 	public function get_lazy_load_image_placeholder() {
 		$context = current_filter();
