@@ -140,7 +140,6 @@ class Echo_Js_Lazy_Load {
 		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
 		add_action( 'init', array( $this, 'init' ) );
-		
 	}
 
 
@@ -197,9 +196,8 @@ class Echo_Js_Lazy_Load {
 		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
-
 	}
-
+	
 	/**
 	 * Put CSS in header.
 	 * To disable, return false on echo_js_lazy_load_ajax_image filter
