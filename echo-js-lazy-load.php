@@ -196,7 +196,7 @@ class Echo_Js_Lazy_Load {
 		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
-	}	
+	}
 
 	/**
 	 * Put CSS in header.
