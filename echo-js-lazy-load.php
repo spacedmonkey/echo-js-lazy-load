@@ -188,7 +188,7 @@ class Echo_Js_Lazy_Load {
 
 	/**
 	 * Run filters on init.
-	 * 
+	 *
 	 */
 	public function init() {
 
@@ -196,8 +196,8 @@ class Echo_Js_Lazy_Load {
 		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
-	}
-	
+	}	
+
 	/**
 	 * Put CSS in header.
 	 * To disable, return false on echo_js_lazy_load_ajax_image filter
