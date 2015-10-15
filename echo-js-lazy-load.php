@@ -139,12 +139,7 @@ class Echo_Js_Lazy_Load {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ), 5 );
 		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
-
-		// Filter filter content to list of filters
-		foreach ( $this->get_filters() as $filter ) {
-			add_filter( $filter, array( $this, 'filter_content' ) );
-		}
-
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 
@@ -189,6 +184,18 @@ class Echo_Js_Lazy_Load {
 		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ), $content );
 
 		return $content;
+	}
+
+	/**
+	 * Run filters on init.
+	 *
+	 */
+	public function init() {
+
+		// Filter filter content to list of filters
+		foreach ( $this->get_filters() as $filter ) {
+			add_filter( $filter, array( $this, 'filter_content' ) );
+		}
 	}
 
 	/**
