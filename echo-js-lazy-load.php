@@ -183,6 +183,11 @@ class Echo_Js_Lazy_Load {
 		// This is a pretty simple regex, but it works
 		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ), $content );
 
+		// Support for WP 4.4 responsive images
+		if ( false === strpos( $content, 'data-echo-srcset' ) ) {
+			$content = str_replace( ' srcset', ' data-echo-srcset', $content );
+		}
+
 		return $content;
 	}
 
@@ -228,6 +233,13 @@ class Echo_Js_Lazy_Load {
 		echo '<script type="text/javascript">
 				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
 				' . $script_name . '.unload = (' . $script_name . '.unload === "true");
+				' . $script_name . '.callback = function ( elem, op ) {
+						   if( op === "load" ) {
+						        if ( elem.getAttribute("data-echo-srcset") !== null ) {
+						            elem.setAttribute("srcset", elem.getAttribute("data-echo-srcset"));
+						        }
+						   }
+						}
 				echo.init(' . $script_name . ');
 			  </script>' . "\n";
 	}
