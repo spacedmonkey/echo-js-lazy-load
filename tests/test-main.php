@@ -61,11 +61,11 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->plugin_class->filter_content( $this->content_without_image ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->plugin_class->filter_content( $this->content_with_image ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->plugin_class->filter_content( $this->content_with_image_atr ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_no_src ), $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->content_without_image  );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->content_with_image );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->content_with_image_srcset );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->content_with_image_atr );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_no_src ), $this->content_with_image_no_src );
 
 		add_filter( 'echo_lazy_load_locally_enabled', '__return_false' );
 	}
@@ -81,7 +81,7 @@ class MainTest extends WP_UnitTestCase {
 
 		$this->assertContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 
-		$this->assertNotEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
+		$this->assertNotEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->content_with_image_srcset );
 
 		add_filter( 'echo_lazy_load_locally_enabled', '__return_true' );
 	}
