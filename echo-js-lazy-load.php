@@ -367,8 +367,7 @@ class Echo_Js_Lazy_Load {
 
 		return apply_filters( 'echo_js_lazy_load_placeholder', $this->lazy_load_image_placeholder, $context );
 	}
-
-
+	
 }
 
 add_action( 'plugins_loaded', array( 'Echo_Js_Lazy_Load', 'get_instance' ) );
