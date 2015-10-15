@@ -57,7 +57,6 @@ class MainTest extends WP_UnitTestCase {
 
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
-		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
@@ -77,7 +76,6 @@ class MainTest extends WP_UnitTestCase {
 
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_without_image ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image ) );
-		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 
@@ -120,12 +118,7 @@ class MainTest extends WP_UnitTestCase {
 			'get_comment_text',
 			'term_description',
 		);
-
-		foreach ( $filters as $element ) {
-			$this->assertArrayHasKey( $element, $this->plugin_class->get_filters() );
-		}
-
-
+		$this->assertEquals( $filters, $this->plugin_class->get_filters() );
 	}
 
 
