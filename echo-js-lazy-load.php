@@ -181,7 +181,7 @@ class Echo_Js_Lazy_Load {
 		$placeholder_image = $this->get_lazy_load_image_placeholder();
 
 		// This is a pretty simple regex, but it works
-		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ), $content );
+		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}>', $placeholder_image ), $content );
 
 		return $content;
 	}
