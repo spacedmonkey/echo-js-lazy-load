@@ -4,15 +4,15 @@ class MainTest extends WP_UnitTestCase {
 
 	protected $plugin_class = null;
 
-	protected $content_with_image = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src='http://www.example.com/image.jpg' alt='test' /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio";
+	protected $content_with_image = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
-	protected $content_with_image_srcset = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src='http://www.example.com/image.jpg' srcset='http://www.example.com/image.jpg 1w' alt='test' /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio";
+	protected $content_with_image_srcset = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" srcset="http://www.example.com/image.jpg 1w" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
-	protected $content_with_image_atr = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src='http://www.example.com/image.jpg' data-echo='http://www.example.com/image.jpg' alt='test' /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio";
+	protected $content_with_image_atr = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" data-echo="http://www.example.com/image.jpg" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
-	protected $content_with_image_no_src = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img class='wibble' alt='test' /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio";
+	protected $content_with_image_no_src = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img class="wibble" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
-	protected $content_without_image = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis faucibus quis diam in molestie. Donec elementum, risus sodales tristique malesuada, nisl eros accumsan odio";
+	protected $content_without_image = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis faucibus quis diam in molestie. Donec elementum, risus sodales tristique malesuada, nisl eros accumsan odio';
 
 	function setUp() {
 		parent::setUp();
