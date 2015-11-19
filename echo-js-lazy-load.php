@@ -173,22 +173,42 @@ class Echo_Js_Lazy_Load {
 			return $content;
 		}
 
-		// Don't lazy-load if the content has already been run through previously
-		if ( false !== strpos( $content, 'data-echo' ) ) {
-			return $content;
-		}
+		$content = preg_replace_callback(
+			'/<img[^>]+>/i',
+			array( $this, 'change_img_markup' ),
+			$content
+		);
+
+		return $content;
+	}
+
+	/**
+	 *
+	 * @param  $matches List of images
+	 * @return $image  Image Tag
+	 */
+	function change_img_markup( $matches ) {
+
+		$image = array_shift( $matches );
 
 		$placeholder_image = $this->get_lazy_load_image_placeholder();
 
-		// This is a pretty simple regex, but it works
-		$content = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-echo="${2}"${3}><noscript><img${1}src="${2}"${3}></noscript>', $placeholder_image ), $content );
+		$replace = array(
+			'data-echo'               => array( 'src="' => sprintf( 'src="%s" data-echo="', $placeholder_image ) ),
+			'data-echo-srcset'        => array( ' srcset' => ' data-echo-srcset' ),
+			'class="'                 => array( '<img ' => '<img class="" ' ),
+			'echo-image echo-loading' => array( 'class="' => 'class="echo-image echo-loading ' )
+		);
 
-		// Support for WP 4.4 responsive images
-		if ( false === strpos( $content, 'data-echo-srcset' ) ) {
-			$content = str_replace( ' srcset', ' data-echo-srcset', $content );
+		foreach ( $replace as $search_item => $terms ) {
+			foreach ( $terms as $before => $after ) {
+				if ( false === strpos( $image, $search_item ) ) {
+					$image = str_replace( $before, $after, $image );
+				}
+			}
 		}
 
-		return $content;
+		return $image;
 	}
 
 	/**
@@ -210,7 +230,7 @@ class Echo_Js_Lazy_Load {
 	public function wp_head() {
 		$image_url = $this->get_lazy_load_image_ajax();
 		if ( $image_url ) {
-			echo "<style type='text/css' media='screen'>img[data-echo]{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
+			echo "<style type='text/css' media='screen'>.echo-loading{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
 
 		}
 	}
@@ -237,7 +257,10 @@ class Echo_Js_Lazy_Load {
 						   if( op === "load" ) {
 						        if ( elem.getAttribute("data-echo-srcset") !== null ) {
 						            elem.setAttribute("srcset", elem.getAttribute("data-echo-srcset"));
+						            elem.removeAttribute("data-echo-srcset");
 						        }
+								elem.classList.remove("echo-loading");
+								elem.classList.add("echo-loaded");
 						   }
 						}
 				echo.init(' . $script_name . ');
