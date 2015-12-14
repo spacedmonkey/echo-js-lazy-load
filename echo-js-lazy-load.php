@@ -324,6 +324,13 @@ class Echo_Js_Lazy_Load {
 			$lazy_load_enabled = false;
 		}
 
+		// Is post, let's not bother
+		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) ||
+			( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) ) {
+			$context           = 'post';
+			$lazy_load_enabled = false;
+		}
+
 		/**
 		 * Is echo js enabled, by context
 		 *
