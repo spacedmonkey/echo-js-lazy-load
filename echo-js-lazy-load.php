@@ -13,7 +13,7 @@
  * Plugin Name:        Echo.js Lazy Load
  * Plugin URI:         https://www.github.com/spacedmonkey/echo-js-lazy-load
  * Description:        Echo.js based lazy load plugin for WordPress
- * Version:            1.0.0
+ * Version:            1.1.0
  * Author:             Jonathan Harris
  * Author URI:         http://www.jonathandavidharris.co.uk/
  * Text Domain:        echo-js-lazy-load
@@ -40,7 +40,7 @@ class Echo_Js_Lazy_Load {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Instance of this class.
