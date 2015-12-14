@@ -208,6 +208,7 @@ class Echo_Js_Lazy_Load {
 			}
 		}
 
+
 		return $image;
 	}
 
