@@ -190,6 +190,7 @@ class Echo_Js_Lazy_Load {
 	function change_img_markup( $matches ) {
 
 		$image = array_shift( $matches );
+		$image = str_replace( '\'', '"', $image );
 
 		$placeholder_image = $this->get_lazy_load_image_placeholder();
 
