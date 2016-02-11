@@ -72,7 +72,6 @@ class Echo_Js_Lazy_Load {
 		'get_the_excerpt',
 		'widget_text',
 		'post_thumbnail_html',
-		'get_avatar',
 		'get_comment_excerpt',
 		'get_comment_text',
 		'term_description',
