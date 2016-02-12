@@ -8,6 +8,8 @@ class MainTest extends WP_UnitTestCase {
 
 	protected $content_with_image_srcset = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" srcset="http://www.example.com/image.jpg 1w" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
+	protected $content_with_image_srcset_single_quote = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img alt=\'Andy Jones\' src=\'http://cyclingweekly.vagrant.local/wp-content/uploads/sites/2/2016/01/gm_1952-199x300-199x300.jpg\' srcset=\'http://cyclingweekly.vagrant.local/wp-content/uploads/sites/2/2016/01/gm_1952-199x300.jpg 2x\' class=\'avatar avatar-135 photo img-circle\' height=\'135\' width=\'135\' /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
+
 	protected $content_with_image_atr = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" data-echo="http://www.example.com/image.jpg" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
 
 	protected $content_with_image_no_src = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img class="wibble" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
@@ -30,6 +32,7 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
+		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_without_image ) );
 
@@ -45,6 +48,7 @@ class MainTest extends WP_UnitTestCase {
 
 		$this->assertContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
+		$this->assertContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ) );
 		$this->assertNotContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
 		$this->assertNotContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 		$this->assertNotContains( $placeholder_image, $this->plugin_class->filter_content( $this->content_without_image ) );
@@ -59,11 +63,13 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_no_src ) );
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
+		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->content_without_image  );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->content_with_image );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->content_with_image_srcset );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ), $this->content_with_image_srcset_single_quote );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_atr ), $this->content_with_image_atr );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_no_src ), $this->content_with_image_no_src );
 
@@ -80,6 +86,7 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
 
 		$this->assertContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
+		$this->assertContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ) );
 
 		$this->assertNotEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->content_with_image_srcset );
 

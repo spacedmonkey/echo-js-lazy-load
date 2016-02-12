@@ -194,10 +194,16 @@ class Echo_Js_Lazy_Load {
 		$placeholder_image = $this->get_lazy_load_image_placeholder();
 
 		$replace = array(
-			'data-echo'               => array( 'src="' => sprintf( 'src="%s" data-echo="', $placeholder_image ) ),
+			'data-echo'               => array(
+				'src="' => sprintf( 'src="%s" data-echo="', $placeholder_image ),
+				"src='" => sprintf( "src='%s' data-echo='", $placeholder_image ),
+			),
 			'data-echo-srcset'        => array( ' srcset' => ' data-echo-srcset' ),
-			'class="'                 => array( '<img ' => '<img class="" ' ),
-			'echo-image echo-loading' => array( 'class="' => 'class="echo-image echo-loading ' ),
+			'class='                  => array( '<img ' => '<img class="" ' ),
+			'echo-image echo-loading' => array(
+				'class="' => 'class="echo-image echo-loading ',
+				"class='" => "class='echo-image echo-loading ",
+			),
 		);
 
 		foreach ( $replace as $search_item => $terms ) {
@@ -210,7 +216,6 @@ class Echo_Js_Lazy_Load {
 
 		return $image;
 	}
-
 	/**
 	 * Run filters on init.
 	 *
