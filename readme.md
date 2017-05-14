@@ -7,7 +7,7 @@ It is built using the WordPress coding standards, is designed to be very lite we
 
 [![Build Status](https://travis-ci.org/spacedmonkey/echo-js-lazy-load.svg?branch=master)](https://travis-ci.org/spacedmonkey/echo-js-lazy-load)
 
-If you wish to follow the development of this plugin, view the code on the official plugin [website](http://www.jonathandavidharris.co.uk/ "website") or follow me on twitter [@thespacedmonkey](https://twitter.com/thespacedmonkey)
+If you wish to follow the development of this plugin, view the code on the official plugin [website](http://www.spacedmonkey.com/ "website") or follow me on twitter [@thespacedmonkey](https://twitter.com/thespacedmonkey)
 
 ## Customization
 
