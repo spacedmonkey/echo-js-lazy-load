@@ -6,7 +6,7 @@
  * @package   Echo_Js_Lazy_Load
  * @author    Jonathan Harris <jon@spacedmonkey.co.uk>
  * @license   GPL-2.0+
- * @link      http://www.jonathandavidharris.co.uk/
+ * @link      http://www.spacedmonkey.com/
  * @copyright 2015 Spacedmonkey
  *
  * @wordpress-plugin
@@ -15,7 +15,7 @@
  * Description:        Echo.js based lazy load plugin for WordPress
  * Version:            1.1.0
  * Author:             Jonathan Harris
- * Author URI:         http://www.jonathandavidharris.co.uk/
+ * Author URI:         http://www.spacedmonkey.com/
  * Text Domain:        echo-js-lazy-load
  * License:            GPL-2.0+
  * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
