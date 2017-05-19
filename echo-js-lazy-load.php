@@ -423,4 +423,4 @@ class Echo_Js_Lazy_Load {
 	}
 }
 
-add_action( 'plugins_loaded', array( 'Echo_Js_Lazy_Load', 'get_instance' ) );
+add_action( 'init', array( 'Echo_Js_Lazy_Load', 'get_instance' ) );
