@@ -133,7 +133,7 @@ class Echo_Js_Lazy_Load {
 			return;
 		}
 
-		$this->lazy_load_image_placeholder = plugins_url( 'img/blank.gif', __FILE__ );
+		$this->lazy_load_image_placeholder = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
 		$this->lazy_load_image_ajax        = plugins_url( 'img/ajax.gif', __FILE__ );
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ), 5 );
@@ -198,8 +198,12 @@ class Echo_Js_Lazy_Load {
 				'src="' => sprintf( 'src="%s" data-echo="', $placeholder_image ),
 				"src='" => sprintf( "src='%s' data-echo='", $placeholder_image ),
 			),
-			'data-echo-srcset'        => array( ' srcset' => ' data-echo-srcset' ),
-			'class='                  => array( '<img ' => '<img class="" ' ),
+			'data-echo-srcset'        => array(
+				' srcset' => ' data-echo-srcset',
+			),
+			'class='                  => array(
+				'<img ' => '<img class="" ',
+			),
 			'echo-image echo-loading' => array(
 				'class="' => 'class="echo-image echo-loading ',
 				"class='" => "class='echo-image echo-loading ",
@@ -326,6 +330,12 @@ class Echo_Js_Lazy_Load {
 		// Is doing cron
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			$context           = 'cron';
+			$lazy_load_enabled = false;
+		}
+
+		// Is doing api
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			$context           = 'api';
 			$lazy_load_enabled = false;
 		}
 
