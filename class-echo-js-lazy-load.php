@@ -199,10 +199,10 @@ class Echo_Js_Lazy_Load {
 				"src='" => sprintf( "src='%s' data-echo='", $placeholder_image ),
 			),
 			'data-echo-srcset'        => array(
-				' srcset' => ' data-echo-srcset'
+				' srcset' => ' data-echo-srcset',
 			),
 			'class='                  => array(
-				'<img ' => '<img class="" '
+				'<img ' => '<img class="" ',
 			),
 			'echo-image echo-loading' => array(
 				'class="' => 'class="echo-image echo-loading ',
