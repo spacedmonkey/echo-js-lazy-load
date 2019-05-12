@@ -332,10 +332,28 @@ class Echo_Js_Lazy_Load {
 			$context           = 'cron';
 			$lazy_load_enabled = false;
 		}
+		
+		// Is wp cli
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			$context           = 'wp_cli';
+			$lazy_load_enabled = false;
+		}
 
 		// Is doing api
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 			$context           = 'api';
+			$lazy_load_enabled = false;
+		}
+		
+		// Is doing api
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$context           = 'api';
+			$lazy_load_enabled = false;
+		}
+		
+		// Is doing xml request
+		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() ) {
+			$context           = 'xml';
 			$lazy_load_enabled = false;
 		}
 
