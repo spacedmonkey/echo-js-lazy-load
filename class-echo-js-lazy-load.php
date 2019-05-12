@@ -339,24 +339,6 @@ class Echo_Js_Lazy_Load {
 			$lazy_load_enabled = false;
 		}
 
-		// Is doing api
-		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-			$context           = 'api';
-			$lazy_load_enabled = false;
-		}
-		
-		// Is doing api
-		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
-			$context           = 'api';
-			$lazy_load_enabled = false;
-		}
-		
-		// Is doing xml request
-		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() ) {
-			$context           = 'xml';
-			$lazy_load_enabled = false;
-		}
-
 		// Is post, let's not bother
 		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) ||
 			( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) ) {
@@ -401,6 +383,24 @@ class Echo_Js_Lazy_Load {
 		// Is in post preview
 		if ( is_preview() ) {
 			$context                 = 'preview';
+			$this->lazy_load_enabled = false;
+		}
+		
+		// Is doing api
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			$context                 = 'api';
+			$this->lazy_load_enabled = false;
+		}
+		
+		// Is doing api
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$context                 = 'api';
+			$this->lazy_load_enabled = false;
+		}
+		
+		// Is doing xml request
+		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() ) {
+			$context                 = 'xml';
 			$this->lazy_load_enabled = false;
 		}
 
