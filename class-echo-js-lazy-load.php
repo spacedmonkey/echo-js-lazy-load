@@ -259,6 +259,7 @@ class Echo_Js_Lazy_Load {
 	 */
 	function wp_footer() {
 		$script_name = $this->get_plugin_name();
+		// @codingStandardsIgnoreStart
 		// phpcs:disable
 		echo '<script type="text/javascript">
 				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
@@ -276,6 +277,7 @@ class Echo_Js_Lazy_Load {
 				echo.init(' . $script_name . ');
 			  </script>' . "\n";
 		// phpcs:enable
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**
@@ -343,7 +345,7 @@ class Echo_Js_Lazy_Load {
 
 		// Is post, let's not bother
 		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) ||
+		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) || // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.NoNonceVerification
 			( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) ) {
 			$context           = 'post';
 			$lazy_load_enabled = false;
