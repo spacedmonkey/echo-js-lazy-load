@@ -4,6 +4,9 @@ notifications:
   on_success: never
   on_failure: change
 
+services:
+  - mysql
+
 php:
   - 5.3
   - 5.5
