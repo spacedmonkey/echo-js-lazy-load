@@ -239,7 +239,7 @@ class Echo_Js_Lazy_Load {
 	public function wp_head() {
 		$image_url = $this->get_lazy_load_image_ajax();
 		if ( $image_url ) {
-			echo "<style type='text/css' media='screen'>.echo-loading{ background: #fff url('" . $image_url . "') no-repeat center center; } </style>";
+			echo "<style type='text/css' media='screen'>.echo-loading { background: #fff url('" . esc_url( $image_url ) . "') no-repeat center center; } </style>";
 
 		}
 	}
@@ -259,21 +259,25 @@ class Echo_Js_Lazy_Load {
 	 */
 	function wp_footer() {
 		$script_name = $this->get_plugin_name();
+		// @codingStandardsIgnoreStart
+		// phpcs:disable
 		echo '<script type="text/javascript">
 				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
 				' . $script_name . '.unload = (' . $script_name . '.unload === "true");
 				' . $script_name . '.callback = function ( elem, op ) {
-						   if( op === "load" ) {
-						        if ( elem.getAttribute("data-echo-srcset") !== null ) {
-						            elem.setAttribute("srcset", elem.getAttribute("data-echo-srcset"));
-						            elem.removeAttribute("data-echo-srcset");
-						        }
+							if ( op === "load" ) {
+								if ( elem.getAttribute("data-echo-srcset") !== null ) {
+									elem.setAttribute("srcset", elem.getAttribute("data-echo-srcset"));
+									elem.removeAttribute("data-echo-srcset");
+								}
 								elem.classList.remove("echo-loading");
 								elem.classList.add("echo-loaded");
-						   }
+							}
 						}
 				echo.init(' . $script_name . ');
 			  </script>' . "\n";
+		// phpcs:enable
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**
@@ -332,7 +336,7 @@ class Echo_Js_Lazy_Load {
 			$context           = 'cron';
 			$lazy_load_enabled = false;
 		}
-		
+
 		// Is wp cli
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$context           = 'wp_cli';
@@ -340,7 +344,8 @@ class Echo_Js_Lazy_Load {
 		}
 
 		// Is post, let's not bother
-		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) ||
+		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) || // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.NoNonceVerification
 			( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) ) {
 			$context           = 'post';
 			$lazy_load_enabled = false;
@@ -385,19 +390,19 @@ class Echo_Js_Lazy_Load {
 			$context                 = 'preview';
 			$this->lazy_load_enabled = false;
 		}
-		
+
 		// Is doing api
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 			$context                 = 'api';
 			$this->lazy_load_enabled = false;
 		}
-		
+
 		// Is doing api
 		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
 			$context                 = 'api';
 			$this->lazy_load_enabled = false;
 		}
-		
+
 		// Is doing xml request
 		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() ) {
 			$context                 = 'xml';

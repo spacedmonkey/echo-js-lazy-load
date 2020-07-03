@@ -1,7 +1,7 @@
 {
     "name": "spacedmonkey/echo-js-lazy-load",
     "description": "Echo.js based lazy load plugin for WordPress",
-    "homepage": "https://github.com/spacedmonkey/echo-js-lazy-load/",
+    "homepage": "https://github.com/spacedmonkey/echo-js-lazy-load",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
     "authors": [
@@ -16,14 +16,15 @@
     },
     "require": {
         "php": ">=5.3",
-        "composer/installers": "~1.0"
+        "composer/installers": "~1.0",
+        "squizlabs/php_codesniffer": "2.9.2"
     },
     "require-dev": {
-        "wp-coding-standards/wpcs": "dev-develop",
-        "sebastian/phpcpd": "*"
+        "wp-coding-standards/wpcs": "^1.2.1",
+        "sebastian/phpcpd": "^2.0.4"
     },
     "scripts": {
-        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
-        "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
+        "post-install-cmd": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+        "post-update-cmd": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
     }
 }
