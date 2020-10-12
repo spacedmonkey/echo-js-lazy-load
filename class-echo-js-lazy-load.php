@@ -20,6 +20,8 @@
  * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:        /languages
  * GitHub Plugin URI:  https://www.github.com/spacedmonkey/echo-js-lazy-load
+ * Requires at least: 4.3
+ * Requires PHP: 5.6
  */
 
 // If this file is called directly, abort.
