@@ -140,6 +140,9 @@ class Echo_Js_Lazy_Load {
 		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
 		add_action( 'init', array( $this, 'init' ) );
+		
+		// Disable core lazy loading in 5.5.
+		add_filter( 'wp_lazy_loading_enabled', '__return_false' );
 	}
 
 
