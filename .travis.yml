@@ -40,4 +40,4 @@ before_script:
 
 script:
    - vendor/bin/phpcs -n --report=emacs --standard=phpcs.ruleset.xml class-echo-js-lazy-load.php
-   - phpunit
+   - vendor/bin/phpunit
