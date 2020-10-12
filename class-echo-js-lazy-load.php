@@ -2,7 +2,6 @@
 /**
  * Echo.js based lazy load plugin for WordPress
  *
- *
  * @package   Echo_Js_Lazy_Load
  * @author    Jonathan Harris <jon@spacedmonkey.co.uk>
  * @license   GPL-2.0+
@@ -21,6 +20,8 @@
  * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:        /languages
  * GitHub Plugin URI:  https://www.github.com/spacedmonkey/echo-js-lazy-load
+ * Requires at least: 4.3
+ * Requires PHP: 5.6
  */
 
 // If this file is called directly, abort.
@@ -33,21 +34,23 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Echo_Js_Lazy_Load {
 
+
+
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   1.0.0
+	 * @since 1.0.0
 	 *
-	 * @var     string
+	 * @var string
 	 */
 	const VERSION = '1.1.0';
 
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 *
-	 * @var      object
+	 * @var object
 	 */
 	protected static $instance = null;
 
@@ -55,7 +58,9 @@ class Echo_Js_Lazy_Load {
 	 * Initialize the plugin name by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
+	 *
+	 * @var string
 	 */
 
 	protected $plugin_name = 'echo_js_lazy_load';
@@ -63,7 +68,7 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * List of filters to run this string replace on
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
 	 *
 	 * @var array
 	 */
@@ -81,7 +86,7 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * Javascript settings array
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
@@ -89,15 +94,14 @@ class Echo_Js_Lazy_Load {
 		'offset'   => 500,
 		'throttle' => 250,
 		'debounce' => 'true',
-		'unload' => 'false',
+		'unload'   => 'false',
 	);
 
 
 	/**
-	 *
 	 * URL of ajax image
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
@@ -105,18 +109,18 @@ class Echo_Js_Lazy_Load {
 
 
 	/**
-	 *
 	 * URL of placeholder image
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
 	protected $lazy_load_image_placeholder = '';
 
 	/**
+	 * Is lazy loading enabled.
 	 *
-	 * @since     1.0.0
+	 * @since 1.0.0
 	 *
 	 * @var boolean
 	 */
@@ -124,11 +128,11 @@ class Echo_Js_Lazy_Load {
 
 
 	/**
-	 *
+	 *  Constructor.
 	 */
 	private function __construct() {
 
-		// Lets not both if not enabled
+		// Lets not both if not enabled.
 		if ( ! $this->is_lazy_load_enabled() ) {
 			return;
 		}
@@ -146,14 +150,13 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
-	 *
-	 * @return    object    A single instance of this class.
+	 * @return object    A single instance of this class.
+	 * @since  1.0.0
 	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -162,13 +165,13 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * String replace on content to add data attribute
 	 *
-	 * @param $content
+	 * @param string $content HTML content.
 	 *
 	 * @return mixed
 	 */
 	public function filter_content( $content ) {
 
-		// Lets not both if not enabled
+		// Lets not both if not enabled.
 		if ( ! $this->is_lazy_load_locally_enabled() ) {
 			return $content;
 		}
@@ -183,11 +186,13 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 * Add data attributes
 	 *
-	 * @param  $matches List of images
+	 * @param array $matches List of images.
+	 *
 	 * @return $image  Image Tag
 	 */
-	function change_img_markup( $matches ) {
+	public function change_img_markup( $matches ) {
 
 		$image = array_shift( $matches );
 
@@ -220,13 +225,13 @@ class Echo_Js_Lazy_Load {
 
 		return $image;
 	}
+
 	/**
 	 * Run filters on init.
-	 *
 	 */
 	public function init() {
 
-		// Filter filter content to list of filters
+		// Filter filter content to list of filters.
 		foreach ( $this->get_filters() as $filter ) {
 			add_filter( $filter, array( $this, 'filter_content' ) );
 		}
@@ -246,7 +251,6 @@ class Echo_Js_Lazy_Load {
 
 	/**
 	 * Output scripts with settings.
-	 *
 	 */
 	public function wp_enqueue_scripts() {
 		$script = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'echo.js' : 'echo.min.js';
@@ -257,11 +261,11 @@ class Echo_Js_Lazy_Load {
 	/**
 	 * Init the script in footer
 	 */
-	function wp_footer() {
+	public function wp_footer() {
 		$script_name = $this->get_plugin_name();
-		// @codingStandardsIgnoreStart
-		// phpcs:disable
-		echo '<script type="text/javascript">
+        // @codingStandardsIgnoreStart
+        // phpcs:disable
+        echo '<script type="text/javascript">
 				' . $script_name . '.debounce = (' . $script_name . '.debounce === "true");
 				' . $script_name . '.unload = (' . $script_name . '.unload === "true");
 				' . $script_name . '.callback = function ( elem, op ) {
@@ -276,7 +280,7 @@ class Echo_Js_Lazy_Load {
 						}
 				echo.init(' . $script_name . ');
 			  </script>' . "\n";
-		// phpcs:enable
+        // phpcs:enable
 		// @codingStandardsIgnoreEnd
 	}
 
@@ -300,6 +304,7 @@ class Echo_Js_Lazy_Load {
 	}
 
 	/**
+	 * Getter to get plugin name.
 	 *
 	 * @return string
 	 */
@@ -319,34 +324,35 @@ class Echo_Js_Lazy_Load {
 		$context           = '';
 		$lazy_load_enabled = true;
 
-		// Is in admin terminal
+		// Is in admin terminal.
 		if ( is_admin() ) {
 			$context           = 'admin';
 			$lazy_load_enabled = false;
 		}
 
-		// Is doing ajax
+		// Is doing ajax.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			$context           = 'ajax';
 			$lazy_load_enabled = false;
 		}
 
-		// Is doing cron
+		// Is doing cron.
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			$context           = 'cron';
 			$lazy_load_enabled = false;
 		}
 
-		// Is wp cli
+		// Is wp cli.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$context           = 'wp_cli';
 			$lazy_load_enabled = false;
 		}
 
-		// Is post, let's not bother
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-		if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST ) || // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.NoNonceVerification
-			( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) ) {
+		// Is post, let's not bother.
+     // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+     if ( ! empty( $GLOBALS['HTTP_RAW_POST_DATA'] ) || ! empty( $_POST )  // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.NoNonceVerification
+		|| ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] )
+		) {
 			$context           = 'post';
 			$lazy_load_enabled = false;
 		}
@@ -354,11 +360,11 @@ class Echo_Js_Lazy_Load {
 		/**
 		 * Is echo js enabled, by context
 		 *
-		 * @since 1.0.0
-		 *
 		 * @param boolean $enabled Is and isn't enabled.
 		 * @param string $context Current context of where the filter is called
 		 * @param string $filter Current filter
+		 *
+		 * @since 1.0.0
 		 */
 
 		return apply_filters( 'echo_js_lazy_load_enabled', $lazy_load_enabled, $context );
@@ -379,43 +385,43 @@ class Echo_Js_Lazy_Load {
 		$filter                  = current_filter();
 		$this->lazy_load_enabled = true;
 
-		// Is in feed
+		// Is in feed.
 		if ( is_feed() ) {
-			$context           = 'feed';
+			$context                 = 'feed';
 			$this->lazy_load_enabled = false;
 		}
 
-		// Is in post preview
+		// Is in post preview.
 		if ( is_preview() ) {
 			$context                 = 'preview';
 			$this->lazy_load_enabled = false;
 		}
 
-		// Is doing api
+		// Is doing api.
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 			$context                 = 'api';
 			$this->lazy_load_enabled = false;
 		}
 
-		// Is doing api
+		// Is doing api.
 		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
 			$context                 = 'api';
 			$this->lazy_load_enabled = false;
 		}
 
-		// Is doing xml request
+		// Is doing xml request.
 		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() ) {
 			$context                 = 'xml';
 			$this->lazy_load_enabled = false;
 		}
 
 		// Is in admin bar / avatar. This is a work around.
-		if ( array( 'wp_footer', 'admin_bar_menu', 'get_avatar' ) == $wp_current_filter ) {
+		if ( array( 'wp_footer', 'admin_bar_menu', 'get_avatar' ) === $wp_current_filter ) {
 			$context                 = 'admin-bar';
 			$this->lazy_load_enabled = false;
 		}
 
-		// Is in customizer
+		// Is in customizer.
 		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			$context                 = 'customize_preview';
 			$this->lazy_load_enabled = false;
@@ -424,11 +430,11 @@ class Echo_Js_Lazy_Load {
 		/**
 		 * Is echo js enabled, by context
 		 *
-		 * @since 1.0.0
+		 * @param boolean $enabled Is and isn't enabled.
+		 * @param string $context Current context of where the filter is called
+		 * @param string $filter Current filter
 		 *
-		 * @param boolean $enabled  Is and isn't enabled.
-		 * @param string $context   Current context of where the filter is called
-		 * @param string $filter    Current filter
+		 * @since 1.0.0
 		 */
 		return apply_filters( 'echo_lazy_load_locally_enabled', $this->lazy_load_enabled, $context, $filter );
 	}

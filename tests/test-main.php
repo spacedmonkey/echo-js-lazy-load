@@ -2,6 +2,7 @@
 
 class MainTest extends WP_UnitTestCase {
 
+
 	protected $plugin_class = null;
 
 	protected $content_with_image = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <img src="http://www.example.com/image.jpg" alt="test" /> Duis faucibus quis diam in molestie. Donec elementum risus sodales tristique malesuada, nisl eros accumsan odio';
@@ -66,7 +67,7 @@ class MainTest extends WP_UnitTestCase {
 		$this->assertNotContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ) );
 		$this->assertNotContains( 'data-echo-srcset', $this->plugin_class->filter_content( $this->content_with_image_srcset ) );
 		$this->assertContains( 'data-echo', $this->plugin_class->filter_content( $this->content_with_image_atr ) );
-		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->content_without_image  );
+		$this->assertEquals( $this->plugin_class->filter_content( $this->content_without_image ), $this->content_without_image );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image ), $this->content_with_image );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset ), $this->content_with_image_srcset );
 		$this->assertEquals( $this->plugin_class->filter_content( $this->content_with_image_srcset_single_quote ), $this->content_with_image_srcset_single_quote );
