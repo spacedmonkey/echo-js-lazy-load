@@ -12,7 +12,7 @@
  * Plugin Name:        Echo.js Lazy Load
  * Plugin URI:         https://www.github.com/spacedmonkey/echo-js-lazy-load
  * Description:        Echo.js based lazy load plugin for WordPress
- * Version:            1.1.0
+ * Version:            1.2.2
  * Author:             Jonathan Harris
  * Author URI:         http://www.spacedmonkey.com/
  * Text Domain:        echo-js-lazy-load
@@ -20,8 +20,8 @@
  * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:        /languages
  * GitHub Plugin URI:  https://www.github.com/spacedmonkey/echo-js-lazy-load
- * Requires at least: 4.3
- * Requires PHP: 5.6
+ * Requires at least:  4.3
+ * Requires PHP:       5.6
  */
 
 // If this file is called directly, abort.
@@ -33,8 +33,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Class Echo_Js_Lazy_Load
  */
 class Echo_Js_Lazy_Load {
-
-
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
